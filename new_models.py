@@ -1,5 +1,5 @@
 from torch import nn
-
+from models import resnet, resnet2p1d, pre_act_resnet, wide_resnet, resnext, densenet
 from TDN_ops.basic_ops import ConsensusModule
 from TDN_ops.transforms import *
 from torch.nn.init import normal_, constant_
