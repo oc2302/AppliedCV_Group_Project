@@ -7,7 +7,7 @@ import numpy as np
 import numbers
 import math
 from torch.nn.init import normal_, constant_
-from ops.tdn_net import tdn_net
+from tsn_net import tsn_net
 
 
 class A2(nn.Module):
@@ -65,7 +65,7 @@ class A2(nn.Module):
         return feature_dim
 
     def _prepare_base_model(self, base_model, num_segments):
-            self.base_model = tdn_net(base_model, num_segments)
+            self.base_model = tsn_net(base_model, num_segments)
             self.base_model.last_layer_name = 'fc'
             self.input_size = 224
             self.input_mean = [0.485, 0.456, 0.406]
