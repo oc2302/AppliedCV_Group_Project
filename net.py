@@ -5,7 +5,7 @@ import torch.nn.functional as func
 
 
 
-class Net(nn.Module):
+class TSN_Net(nn.Module):
 
     def __init__(self,resnet_model,resnet_model1,apha,belta):
         super(Net, self).__init__()
@@ -67,7 +67,7 @@ class Net(nn.Module):
 
         return x
 
-def net(base_model=None,num_segments=8,pretrained=True, **kwargs):
+def tsn_net(base_model=None,num_segments=8,pretrained=True, **kwargs):
     if("50" in base_model):
         resnet_model = fbresnet50(num_segments, pretrained)
         resnet_model1 = fbresnet50(num_segments, pretrained)
