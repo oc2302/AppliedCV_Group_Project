@@ -1,9 +1,9 @@
 from torch import nn
 
-from TDNsrc.ops.basic_ops import ConsensusModule
-from TDNsrc.ops.transforms import *
+from TDN_ops.basic_ops import ConsensusModule
+from TDN_ops.transforms import *
 from torch.nn.init import normal_, constant_
-from TDNsrc.ops.tdn_net import tdn_net
+from TDN_ops.tdn_net import tdn_net
 
 class TSN(nn.Module):
     def __init__(self, num_class, num_segments, modality,
