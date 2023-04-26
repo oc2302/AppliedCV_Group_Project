@@ -282,20 +282,6 @@ def save_checkpoint(state, epoch, is_best):
         best_filename = '%s/%s/best.pth.tar' % (args.root_model, args.store_name)
         torch.save(state, best_filename)
 
-
-def check_rootfolders():
-    """Create log and model folder"""
-    folders_util = [
-        args.root_log, args.root_model,
-        os.path.join(args.root_log, args.store_name),
-        os.path.join(args.root_model, args.store_name)
-    ]
-    for folder in folders_util:
-        if not os.path.exists(folder):
-            print('creating folder ' + folder)
-            os.makedirs(folder)
-
-
 if __name__ == '__main__':
     main()
 
