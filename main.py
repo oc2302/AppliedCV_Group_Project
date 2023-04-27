@@ -13,7 +13,7 @@ from TDN_ops.transforms import *
 from TDN_ops.logger import setup_logger
 from TDN_ops.lr_scheduler import get_scheduler
 from TDN_ops.utils import reduce_tensor
-from TDN_ops import parser
+from TDN_ops.opts import parser
 from TDN_ops import dataset_config
 from TDN_ops.utils import AverageMeter, accuracy
 from tensorboardX import SummaryWriter
