@@ -5,6 +5,36 @@ from TDN_ops.transforms import *
 from torch.nn.init import normal_, constant_
 from TDN_ops.tdn_net import tdn_net
 
+
+
+def generate_model(model):
+    model = resnet.generate_model(model_depth=opt.model_depth,
+                                  n_classes=model.n_classes,
+                                  n_input_channels=model.n_input_channels,
+                                  shortcut_type=model.resnet_shortcut,
+                                  conv1_t_size=model.conv1_t_size,
+                                  conv1_t_stride=model.conv1_t_stride,
+                                  no_max_pool=model.no_max_pool,
+                                  widen_factor=model.resnet_widen_factor)
+
+
+
+def load_pretrained_model(model, pretrain_path, model_name, n_finetune_classes):
+    if pretrain_path:
+        print('loading pretrained model {}'.format(pretrain_path))
+        pretrain = torch.load(pretrain_path, map_location='cpu')
+
+        model.load_state_dict(pretrain['state_dict'])
+        tmp_model = model
+        if model_name == 'densenet':
+            tmp_model.classifier = nn.Linear(tmp_model.classifier.in_features,
+                                             n_finetune_classes)
+        else:
+            tmp_model.fc = nn.Linear(tmp_model.fc.in_features,
+                                     n_finetune_classes)
+
+    return model
+
 class TSN(nn.Module):
     def __init__(self, num_class, num_segments, modality,
                  base_model='resnet101', new_length=None,
