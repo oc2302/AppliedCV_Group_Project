@@ -50,16 +50,6 @@ def main():
                           name=f'TDN')
     logger.info('storing name: ' + args.store_name)
     
-    model = generate_model(num_class,
-                args.num_segments,
-                args.modality,
-                base_model=args.arch,
-                consensus_type=args.consensus_type,
-                dropout=args.dropout,
-                img_feature_dim=args.img_feature_dim,
-                partial_bn=not args.no_partialbn,
-                pretrain=args.pretrain,
-                fc_lr5=(args.tune_from and args.dataset in args.tune_from))
     
         
     model_TSN = TSN(num_class,
@@ -72,6 +62,8 @@ def main():
                 partial_bn=not args.no_partialbn,
                 pretrain=args.pretrain,
                 fc_lr5=(args.tune_from and args.dataset in args.tune_from))
+    
+    model_resnet= generate_model(model_TSN)
 
     crop_size = model.crop_size
     scale_size = model.scale_size
