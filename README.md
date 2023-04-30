@@ -5,6 +5,7 @@ Approach 2 of Spatiotemporal Action Recognition: Reducing Computational Demand
 
 # Adapted from codebases: 
 TSM https://github.com/mit-han-lab/temporal-shift-module
+
 TDM https://github.com/MCG-NJU/TDN
 
 # Introduction
