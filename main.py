@@ -7,18 +7,19 @@ import torch.distributed as dist
 import torch.backends.cudnn as cudnn
 import torch.optim
 from torch.nn.utils import clip_grad_norm_
-from TDNsrc.ops.dataset import TSNDataSet
-from TDNsrc.ops.models import TSN
-from TDNsrc.ops.transforms import *
-from TDNsrc.ops.logger import setup_logger
-from TDNsrc.ops.lr_scheduler import get_scheduler
-from TDNsrc.ops.utils import reduce_tensor
-from TDNsrc.opts import parser
-from TDNsrc.ops import dataset_config
-from TDNsrc.ops.utils import AverageMeter, accuracy
+from TDMops.dataset import TSNDataSet
+from TDMops.models import TSN
+from TDMops.transforms import *
+from TDMops.logger import setup_logger
+from TDMops.lr_scheduler import get_scheduler
+from TDMops.utils import reduce_tensor
+from opts import parser
+from TDMops import dataset_config
+from TDMops.utils import AverageMeter, accuracy
 from tensorboardX import SummaryWriter
 from torch.utils.data import *
 import torchvision
+from model import TSM_TDM
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3,4,5,6,7'
 
@@ -50,7 +51,7 @@ def main():
                           name=f'TDN')
     logger.info('storing name: ' + args.store_name)
 
-    model = TSN(num_class,
+    model = TSM_TDM(num_class,
                 args.num_segments,
                 args.modality,
                 base_model=args.arch,
