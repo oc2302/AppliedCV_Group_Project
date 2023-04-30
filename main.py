@@ -7,15 +7,15 @@ import torch.distributed as dist
 import torch.backends.cudnn as cudnn
 import torch.optim
 from torch.nn.utils import clip_grad_norm_
-from TDN_ops.dataset import TSNDataSet
-from TDN_ops.models import TSN
-from TDN_ops.transforms import *
-from TDN_ops.logger import setup_logger
-from TDN_ops.lr_scheduler import get_scheduler
-from TDN_ops.utils import reduce_tensor
-from TDN_ops.opts import parser
-from TDN_ops import dataset_config
-from TDN_ops.utils import AverageMeter, accuracy
+from TDNsrc.ops.dataset import TSNDataSet
+from TDNsrc.ops.models import TSN
+from TDNsrc.ops.transforms import *
+from TDNsrc.ops.logger import setup_logger
+from TDNsrc.ops.lr_scheduler import get_scheduler
+from TDNsrc.ops.utils import reduce_tensor
+from TDNsrc.opts import parser
+from TDNsrc.ops import dataset_config
+from TDNsrc.ops.utils import AverageMeter, accuracy
 from tensorboardX import SummaryWriter
 from torch.utils.data import *
 import torchvision
@@ -49,10 +49,8 @@ def main():
                           distributed_rank=dist.get_rank(),
                           name=f'TDN')
     logger.info('storing name: ' + args.store_name)
-    
-    
-        
-    model_TSN = TSN(num_class,
+
+    model = TSN(num_class,
                 args.num_segments,
                 args.modality,
                 base_model=args.arch,
@@ -62,8 +60,6 @@ def main():
                 partial_bn=not args.no_partialbn,
                 pretrain=args.pretrain,
                 fc_lr5=(args.tune_from and args.dataset in args.tune_from))
-    
-    model_resnet= generate_model(model_TSN)
 
     crop_size = model.crop_size
     scale_size = model.scale_size
